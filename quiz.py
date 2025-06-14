@@ -110,6 +110,32 @@ def draw_button(text, x, y, w, h, color, font):
     screen.blit(label, label_rect)
     return pygame.Rect(x, y, w, h)
 
+def manual_screen():
+    instructions = [
+        "Move with \u2190/\u2192 arrows",
+        "Avoid \ud83c\udf54 junk food - 5 hits = Game Over",
+        "\ud83e\udd5b +500 points",
+        "\ud83c\udfcb\ufe0f +1000 points",
+        "\ud83d\udc89 +2000 points & grow",
+        "30,000 points to clear",
+    ]
+    while True:
+        screen.fill((0, 0, 0))
+        draw_text_center("Game Manual", title_font, (255, 255, 255), 80)
+        y = 150
+        for line in instructions:
+            draw_text_center(line, font, (255, 255, 255), y)
+            y += 40
+        start_btn = draw_button("Start Game", 140, 480, 200, 60, (50, 150, 250), font)
+        pygame.display.update()
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if e.type == pygame.MOUSEBUTTONDOWN and start_btn.collidepoint(e.pos):
+                return
+
+
 def start_screen():
     global selected_character_path
     bg = pygame.transform.scale(
@@ -120,9 +146,8 @@ def start_screen():
         screen.blit(bg, (0, 0))
         draw_text_center("Raising Ronikolman", title_font, (255, 255, 255), 100)
 
-        char1 = draw_button("Character 1", 70, 250, 150, 60, (100, 100, 255), font)
-        char2 = draw_button("Character 2", 260, 250, 150, 60, (255, 100, 100), font)
-        exit_btn = draw_button("Exit", 140, 400, 200, 60, (200, 50, 50), font)
+        start_btn = draw_button("Game Start", 140, 250, 200, 60, (100, 150, 255), font)
+        exit_btn = draw_button("Exit", 140, 350, 200, 60, (200, 50, 50), font)
 
         pygame.display.update()
         for e in pygame.event.get():
@@ -130,11 +155,9 @@ def start_screen():
                 pygame.quit()
                 sys.exit()
             if e.type == pygame.MOUSEBUTTONDOWN:
-                if char1.collidepoint(e.pos):
+                if start_btn.collidepoint(e.pos):
                     selected_character_path = "C:\\Users\\heewon\\Desktop\\Python Workspace\\pygame_basic\\Ronny1.PNG"
-                    return
-                elif char2.collidepoint(e.pos):
-                    selected_character_path = "C:\\Users\\heewon\\Desktop\\Python Workspace\\pygame_basic\\character2.png"
+                    manual_screen()
                     return
                 elif exit_btn.collidepoint(e.pos):
                     pygame.quit()
@@ -195,7 +218,6 @@ def game():
                     to_x = 0
 
         x += to_x
-        x = max(0, min(screen_width - character.get_width(), x))
 
         junk_y += junk_speed
         if junk_y > screen_height:
@@ -214,7 +236,12 @@ def game():
             syringe_items.add(Syringe())
             syringe_timer = now
 
-        character = pygame.transform.scale(original_image, (int(70 * character_scale), int(70 * character_scale)))
+        character = pygame.transform.scale(
+            original_image,
+            (int(70 * character_scale), int(70 * character_scale)),
+        )
+        x = max(0, min(screen_width - character.get_width(), x))
+        y = screen_height - character.get_height()
         rect_char = pygame.Rect(x, y, character.get_width(), character.get_height())
         rect_junk = pygame.Rect(junk_x, junk_y, junk_img.get_width(), junk_img.get_height())
 
