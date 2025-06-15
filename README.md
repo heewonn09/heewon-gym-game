@@ -5,7 +5,8 @@
 
 <시작 화면>
 
-![image](https://github.com/user-attachments/assets/4321c386-18f4-47d5-9dca-204949a7a86c)
+![image](https://github.com/user-attachments/assets/f9aa144f-ae95-4c66-9135-a41a7b6be396)
+
 
 
 <게임 화면>
