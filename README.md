@@ -45,3 +45,21 @@
 
 ```bash
 python heewon_game_final_syringe_scaled.py
+
+▶ 실행 허용 방법
+추가 정보 클릭
+
+아래에 실행 버튼이 생김
+
+클릭하면 실행됩니다
+
+
+
+## 💾 Download
+
+▶ [Download Game (.exe)](https://github.com/heewonn09/heewon-gym-game/releases/download/v1.0/quiz.exe)
+
+또는
+
+▶ [Download Full Package (.zip)](https://github.com/heewonn09/heewon-gym-game/releases/download/v1.0/heewon_gym_game_final_package.zip)
+
